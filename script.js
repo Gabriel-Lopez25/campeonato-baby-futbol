@@ -4,8 +4,8 @@ const URL_CSV = "https://docs.google.com/spreadsheets/d/e/2PACX-1vT0ZWgVHyBlRk_n
 const PUBLICIDADES = [
     "img/publicidad/banner1.jpg",
     "img/publicidad/banner2.jpg",
-    "img/publicidad/banner3.jpg"
-];
+    "img/publicidad/banner3.jpg",
+ ];
 
 let datosPartidos = [];
 let categoriaActual = "2013";
