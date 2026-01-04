@@ -114,13 +114,36 @@ function generarTabla(cat, torneo) {
 function dibujarTabla(datos) {
     const tbody = document.getElementById('body-tabla');
     const thead = document.querySelector('#tabla-posiciones thead');
-    thead.innerHTML = `<tr><th>Pos</th><th>Equipo</th><th>PJ</th><th>DG</th><th>Pts</th></tr>`;
+    
+    // Encabezados completos
+    thead.innerHTML = `
+        <tr>
+            <th>Pos</th>
+            <th>Equipo</th>
+            <th>PJ</th>
+            <th>PG</th>
+            <th>PE</th>
+            <th>PP</th>
+            <th>GF</th>
+            <th>GC</th>
+            <th>DG</th>
+            <th>Pts</th>
+        </tr>`;
+
     tbody.innerHTML = datos.map((club, i) => `
         <tr>
             <td>${i+1}</td>
-            <td class="escudo-td"><img src="img/escudos/${club.nombre}.png" onerror="this.src='img/escudos/default.png'"> ${club.nombre}</td>
+            <td class="escudo-td" style="text-align:left;">
+                <img src="img/escudos/${club.nombre}.png" onerror="this.src='img/escudos/default.png'"> 
+                ${club.nombre}
+            </td>
             <td>${club.pj}</td>
-            <td>${club.dg}</td>
+            <td>${club.pg}</td>
+            <td>${club.pe}</td>
+            <td>${club.pp}</td>
+            <td>${club.gf}</td>
+            <td>${club.gc}</td>
+            <td>${club.dg > 0 ? '+' + club.dg : club.dg}</td>
             <td><b>${club.pts}</b></td>
         </tr>
     `).join('');
