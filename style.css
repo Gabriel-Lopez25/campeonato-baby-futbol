@@ -1,0 +1,178 @@
+/* Variables de color para cambiar el estilo fácilmente */
+:root {
+    --color-principal: #004d99;
+    --color-secundario: #28a745;
+    --color-fondo: #f0f2f5;
+    --color-texto: #333;
+    --color-blanco: #ffffff;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--color-fondo);
+    color: var(--color-texto);
+    line-height: 1.6;
+}
+
+/* 1. Carrusel de Publicidad */
+#banner-publicidad {
+    width: 100%;
+    height: 120px;
+    background: #000;
+    overflow: hidden;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.carrusel img {
+    width: 100%;
+    height: 120px;
+    object-fit: contain; /* Para que el logo del sponsor no se deforme */
+    transition: opacity 0.8s ease-in-out;
+}
+
+/* 2. Encabezado */
+header {
+    padding: 20px;
+    background: var(--color-blanco);
+    text-align: center;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 1.5rem;
+    color: var(--color-principal);
+}
+
+#fecha-actualizacion {
+    font-size: 0.8rem;
+    color: #666;
+}
+
+/* 3. Menú de Categorías (Botones de años) */
+#menu-categorias {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px;
+    background: var(--color-blanco);
+    flex-wrap: wrap;
+}
+
+button {
+    padding: 10px 18px;
+    border: none;
+    border-radius: 25px;
+    background: #ddd;
+    color: #333;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button.activo {
+    background: var(--color-principal);
+    color: white;
+}
+
+/* 4. Filtros de Torneo */
+.filtros-torneo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 15px;
+}
+
+#select-torneo {
+    padding: 10px;
+    width: 90%;
+    max-width: 300px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+}
+
+.btn-acumulado {
+    background: var(--color-secundario);
+    color: white;
+    width: 90%;
+    max-width: 300px;
+}
+
+/* 5. Tablas de Posiciones */
+.table-responsive {
+    overflow-x: auto;
+    margin: 15px;
+}
+
+table {
+    width: 100%;
+    background: white;
+    border-collapse: collapse;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+th, td {
+    padding: 12px 8px;
+    text-align: center;
+    font-size: 0.9rem;
+    border-bottom: 1px solid #eee;
+}
+
+th {
+    background-color: var(--color-principal);
+    color: white;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+}
+
+/* Resaltar la fila de un club o el escudo */
+.escudo-td img {
+    width: 25px;
+    height: 25px;
+    vertical-align: middle;
+    margin-right: 5px;
+}
+
+/* 6. Lista de Partidos (Fixture) */
+#lista-partidos {
+    padding: 15px;
+}
+
+.partido-card {
+    background: white;
+    margin-bottom: 10px;
+    padding: 15px;
+    border-radius: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.equipo-nombre {
+    flex: 1;
+    font-weight: 600;
+}
+
+.resultado-nro {
+    background: #eee;
+    padding: 5px 12px;
+    border-radius: 5px;
+    font-weight: bold;
+    margin: 0 5px;
+}
+
+footer {
+    padding: 30px;
+    text-align: center;
+    font-size: 0.8rem;
+    color: #888;
+}
