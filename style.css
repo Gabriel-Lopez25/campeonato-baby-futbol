@@ -81,6 +81,32 @@ td:last-child {
     color: #58a6ff;
     font-size: 1.1rem;
     font-weight: bold;
+
+    h1, h2 {
+    color: #f0f6fc;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+button {
+    background: #21262d;
+    border: 1px solid #30363d;
+    color: #c9d1d9;
+    border-radius: 6px;
+    padding: 8px 16px;
+}
+
+button.activo {
+    background: #238636; /* Verde tipo "Play" */
+    border-color: #2ea043;
+    color: white;
+}
+
+.partido-card {
+    background: #161b22;
+    border: 1px solid #30363d;
+    color: white;
+}
 }
 
 /* Estilo para los números negativos en DG */
