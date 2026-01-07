@@ -119,18 +119,32 @@ function generarTabla(cat, torneo) {
 function dibujarTabla(datos) {
     const tbody = document.getElementById('body-tabla');
     const thead = document.querySelector('#tabla-posiciones thead');
-    const titulo = document.getElementById('titulo-tabla');
-    if (titulo) titulo.innerText = "Tabla de Posiciones - Cat. " + categoriaActual;
+    if (!tbody || !thead) return;
 
-    thead.innerHTML = `<tr><th>Pos</th><th>Equipo</th><th>PJ</th><th>PG</th><th>PE</th><th>PP</th><th>GF</th><th>GC</th><th>DG</th><th>Pts</th></tr>`;
-    tbody.innerHTML = datos.map((club, i) => `
+    thead.innerHTML = `<tr><th></th><th>Equipo</th><th>PJ</th><th>PG</th><th>PE</th><th>PP</th><th>GF</th><th>GC</th><th>DG</th><th>PTS</th></tr>`;
+    
+    tbody.innerHTML = datos.map((club, i) => {
+        // Lógica para color de DG
+        const dgClass = club.dg > 0 ? 'dg-positiva' : (club.dg < 0 ? 'dg-negativa' : '');
+        const dgSigno = club.dg > 0 ? '+' + club.dg : club.dg;
+
+        return `
         <tr>
             <td>${i+1}</td>
-            <td class="escudo-td"><img src="img/escudos/${club.nombre}.png" onerror="this.src='img/escudos/default.png'"> ${club.nombre}</td>
-            <td>${club.pj}</td><td>${club.pg}</td><td>${club.pe}</td><td>${club.pp}</td>
-            <td>${club.gf}</td><td>${club.gc}</td><td>${club.dg > 0 ? '+'+club.dg : club.dg}</td><td><b>${club.pts}</b></td>
-        </tr>
-    `).join('');
+            <td class="escudo-td">
+                <img src="img/escudos/${club.nombre}.png" onerror="this.src='img/escudos/default.png'"> 
+                <span>${club.nombre}</span>
+            </td>
+            <td>${club.pj}</td>
+            <td>${club.pg}</td>
+            <td>${club.pe}</td>
+            <td>${club.pp}</td>
+            <td>${club.gf}</td>
+            <td>${club.gc}</td>
+            <td class="${dgClass}">${dgSigno}</td>
+            <td>${club.pts}</td>
+        </tr>`;
+    }).join('');
 }
 
 function mostrarAcumuladoClubes() {
