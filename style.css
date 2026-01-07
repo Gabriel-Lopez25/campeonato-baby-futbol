@@ -1,178 +1,88 @@
-/* Variables de color para cambiar el estilo fácilmente */
-:root {
-    --color-principal: #004d99;
-    --color-secundario: #28a745;
-    --color-fondo: #f0f2f5;
-    --color-texto: #333;
-    --color-blanco: #ffffff;
-}
-
+/* DISEÑO TIPO ELIMINATORIAS CONMEBOL */
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: var(--color-fondo);
-    color: var(--color-texto);
-    line-height: 1.6;
+    background-color: #0d1117; /* Fondo muy oscuro profesional */
+    color: #ffffff;
 }
 
-/* 1. Carrusel de Publicidad */
-#banner-publicidad {
-    width: 100%;
-    height: 120px;
-    background: #000;
-    overflow: hidden;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-}
-
-.carrusel img {
-    width: 100%;
-    height: 120px;
-    object-fit: contain; /* Para que el logo del sponsor no se deforme */
-    transition: opacity 0.8s ease-in-out;
-}
-
-/* 2. Encabezado */
-header {
-    padding: 20px;
-    background: var(--color-blanco);
-    text-align: center;
-}
-
-header h1 {
-    margin: 0;
-    font-size: 1.5rem;
-    color: var(--color-principal);
-}
-
-#fecha-actualizacion {
-    font-size: 0.8rem;
-    color: #666;
-}
-
-/* 3. Menú de Categorías (Botones de años) */
-#menu-categorias {
-    display: flex;
-    justify-content: center;
-    gap: 8px;
-    padding: 10px;
-    background: var(--color-blanco);
-    flex-wrap: wrap;
-}
-
-button {
-    padding: 10px 18px;
-    border: none;
-    border-radius: 25px;
-    background: #ddd;
-    color: #333;
-    font-weight: bold;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-button.activo {
-    background: var(--color-principal);
-    color: white;
-}
-
-/* 4. Filtros de Torneo */
-.filtros-torneo {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-    padding: 15px;
-}
-
-#select-torneo {
-    padding: 10px;
-    width: 90%;
-    max-width: 300px;
-    border-radius: 10px;
-    border: 1px solid #ccc;
-    font-size: 1rem;
-}
-
-.btn-acumulado {
-    background: var(--color-secundario);
-    color: white;
-    width: 90%;
-    max-width: 300px;
-}
-
-/* 5. Tablas de Posiciones */
 .table-responsive {
+    background: transparent;
+    padding: 10px;
     overflow-x: auto;
-    margin: 15px;
 }
 
 table {
     width: 100%;
-    background: white;
-    border-collapse: collapse;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    border-collapse: separate;
+    border-spacing: 0 8px; /* Espacio entre filas para el efecto de tarjetas */
+    min-width: 600px;
 }
 
-th, td {
-    padding: 12px 8px;
-    text-align: center;
-    font-size: 0.9rem;
-    border-bottom: 1px solid #eee;
-}
-
-th {
-    background-color: var(--color-principal);
-    color: white;
+/* Encabezados de columna */
+thead th {
+    background-color: transparent;
+    color: #8b949e;
     text-transform: uppercase;
-    font-size: 0.8rem;
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+    padding-bottom: 10px;
+    border: none;
 }
 
-/* Resaltar la fila de un club o el escudo */
-.escudo-td img {
-    width: 25px;
-    height: 25px;
-    vertical-align: middle;
-    margin-right: 5px;
+/* Estilo de cada fila (Tarjeta) */
+tbody tr {
+    background: linear-gradient(90deg, #161b22 0%, #0d1117 100%);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    transition: transform 0.2s;
 }
 
-/* 6. Lista de Partidos (Fixture) */
-#lista-partidos {
-    padding: 15px;
+tbody tr:hover {
+    transform: scale(1.01);
+    background: #1c2128;
 }
 
-.partido-card {
-    background: white;
-    margin-bottom: 10px;
-    padding: 15px;
-    border-radius: 12px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+/* Celdas */
+td {
+    padding: 12px 8px;
+    border: none;
+    font-weight: 500;
 }
 
-.equipo-nombre {
-    flex: 1;
-    font-weight: 600;
-}
-
-.resultado-nro {
-    background: #eee;
-    padding: 5px 12px;
-    border-radius: 5px;
+/* Columna de Posición (Número a la izquierda) */
+td:first-child {
+    border-radius: 5px 0 0 5px;
+    background: #004d99; /* Color para el número de posición */
+    color: white;
     font-weight: bold;
-    margin: 0 5px;
+    width: 40px;
 }
 
-footer {
-    padding: 30px;
-    text-align: center;
-    font-size: 0.8rem;
-    color: #888;
+/* Escudos Circulares */
+.escudo-td {
+    text-align: left;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    min-width: 200px;
 }
+
+.escudo-td img {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%; /* Hace el escudo circular */
+    border: 2px solid #30363d;
+    background: white;
+    object-fit: contain;
+}
+
+/* Resaltar columna de Puntos (PTS) */
+td:last-child {
+    border-radius: 0 5px 5px 0;
+    background: rgba(0, 77, 153, 0.3);
+    color: #58a6ff;
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+
+/* Estilo para los números negativos en DG */
+.dg-negativa { color: #ff7b72; }
+.dg-positiva { color: #3fb950; }
