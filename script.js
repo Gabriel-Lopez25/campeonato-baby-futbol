@@ -181,16 +181,29 @@ function mostrarAcumuladoClubes() {
 
 function generarFixture(cat, torneo) {
     const contenedor = document.getElementById('lista-partidos');
+    if (!contenedor) return;
+    
     const partidos = datosPartidos.filter(p => p.Categoria === cat && p.Torneo === torneo);
+    
     contenedor.innerHTML = partidos.map(p => `
         <div class="partido-card">
             <small>Fecha ${p.Fecha || '-'}</small>
-            <div style="display:flex; justify-content:space-between; align-items:center; width:100%">
-                <span class="equipo-nombre">${p.Local}</span>
-                <span class="resultado-nro">${p.Goles_L || '-'}</span>
-                <span>vs</span>
-                <span class="resultado-nro">${p.Goles_V || '-'}</span>
-                <span class="equipo-nombre">${p.Visitante}</span>
+            <div class="fixture-fila">
+                <div class="equipo-col">
+                    <img src="img/escudos/${p.Local}.png" onerror="this.src='img/escudos/default.png'" class="escudo-fixture">
+                    <span class="equipo-nombre">${p.Local}</span>
+                </div>
+                
+                <div class="resultado-col">
+                    <span class="resultado-nro">${p.Goles_L || '-'}</span>
+                    <span class="vs">vs</span>
+                    <span class="resultado-nro">${p.Goles_V || '-'}</span>
+                </div>
+
+                <div class="equipo-col">
+                    <span class="equipo-nombre">${p.Visitante}</span>
+                    <img src="img/escudos/${p.Visitante}.png" onerror="this.src='img/escudos/default.png'" class="escudo-fixture">
+                </div>
             </div>
             <small style="color: ${p.Estado === 'Jugado' ? 'green' : 'orange'}">${p.Estado}</small>
         </div>
