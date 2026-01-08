@@ -8,22 +8,34 @@ body {
     text-align: center;
 }
 
-/* CONTENEDOR DE BANNER (CARRUSEL) */
+/* CONTENEDOR DEL BANNER */
 .banner-container {
     width: 100%;
-    max-width: 1000px; /* Ancho máximo para que no sea gigante en PC */
+    max-width: 1000px; /* Ancho máximo en PC */
+    height: 200px;      /* ALTURA FIJA: El banner siempre medirá esto */
     margin: 0 auto;
     overflow: hidden;
-    background: #eee;
+    background-color: #000; /* Fondo negro por si la imagen no carga */
+    position: relative;
+    border-bottom: 3px solid #004d99;
 }
 
+/* LA IMAGEN ADENTRO DEL BANNER */
 #img-banner {
-    width: 100%;       /* Obliga a la imagen a ocupar el ancho del contenedor */
-    height: auto;      /* Mantiene la proporción */
+    width: 100%;
+    height: 100%;       /* Obliga a la imagen a medir 200px de alto */
+    object-fit: cover;  /* MAGIA: Recorta la imagen para que llene el espacio sin estirarse */
+    object-position: center; /* Centra la imagen para que no se corte lo importante */
     display: block;
-    transition: opacity 0.8s ease-in-out;
+    transition: opacity 1.0s ease-in-out;
 }
 
+/* Ajuste para celulares (Pantalla pequeña) */
+@media (max-width: 600px) {
+    .banner-container {
+        height: 120px; /* En el celular es más bajito para que no ocupe toda la pantalla */
+    }
+}
 /* TABLAS */
 .table-responsive {
     width: 95%;
