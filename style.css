@@ -67,8 +67,8 @@ tbody tr:nth-child(odd) {
 
 /* EFECTO EXTRA: Resaltar la fila cuando pasas el mouse por encima */
 tbody tr:hover {
-    background-color: #e8f0fe !important; /* Un celeste muy clarito */
-    transition: background-color 0.2s;
+    background-color: #25D366 !important; /* Un celeste muy clarito */
+    transition: background-color 0.3s;
 }
 
 th, td {
