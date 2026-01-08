@@ -9,13 +9,14 @@ body {
 }
 
 /* CONTENEDOR DEL BANNER */
+/* Asegúrate de que en el HTML diga class="banner-container" */
 .banner-container {
     width: 100%;
-    max-width: 1000px; /* Ancho máximo en PC */
-    height: 200px;      /* ALTURA FIJA: El banner siempre medirá esto */
+    max-width: 1000px;
+    height: 200px;      /* Altura fija en PC */
     margin: 0 auto;
     overflow: hidden;
-    background-color: #000; /* Fondo negro por si la imagen no carga */
+    background-color: #000;
     position: relative;
     border-bottom: 3px solid #004d99;
 }
@@ -23,25 +24,26 @@ body {
 /* LA IMAGEN ADENTRO DEL BANNER */
 #img-banner {
     width: 100%;
-    height: 100%;       /* Obliga a la imagen a medir 200px de alto */
-    object-fit: cover;  /* MAGIA: Recorta la imagen para que llene el espacio sin estirarse */
-    object-position: center; /* Centra la imagen para que no se corte lo importante */
+    height: 100%;
+    object-fit: cover;  /* Ajusta la imagen al recuadro sin deformar */
+    object-position: center;
     display: block;
     transition: opacity 1.0s ease-in-out;
 }
 
-/* Ajuste para celulares (Pantalla pequeña) */
+/* Ajuste para celulares */
 @media (max-width: 600px) {
     .banner-container {
-        height: 120px; /* En el celular es más bajito para que no ocupe toda la pantalla */
+        height: 120px; /* Altura más pequeña en móviles */
     }
 }
+
 /* TABLAS */
 .table-responsive {
     width: 95%;
     max-width: 1000px;
     margin: 20px auto;
-    overflow-x: auto; /* Permite scroll lateral en celulares */
+    overflow-x: auto;
     background: white;
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
@@ -50,7 +52,7 @@ body {
 table {
     width: 100%;
     border-collapse: collapse;
-    min-width: 600px; /* Para que los datos no se amontonen */
+    min-width: 600px;
 }
 
 th, td {
@@ -93,45 +95,56 @@ button.activo {
     color: white;
 }
 
-/* FIXTURE */
+/* ESTILOS DEL FIXTURE (RESULTADOS) */
 .partido-card {
     background: white;
     margin: 10px auto;
     padding: 15px;
     width: 90%;
-    max-width: 500px;
+    max-width: 550px;
     border-radius: 8px;
     box-shadow: 0 1px 3px rgba(0,0,0,0.1);
 }
 
-function generarFixture(cat, torneo) {
-    const contenedor = document.getElementById('lista-partidos');
-    if (!contenedor) return;
-    
-    const partidos = datosPartidos.filter(p => p.Categoria === cat && p.Torneo === torneo);
-    
-    contenedor.innerHTML = partidos.map(p => `
-        <div class="partido-card">
-            <small>Fecha ${p.Fecha || '-'}</small>
-            <div class="fixture-fila">
-                <div class="equipo-col">
-                    <img src="img/escudos/${p.Local}.png" onerror="this.src='img/escudos/default.png'" class="escudo-fixture">
-                    <span class="equipo-nombre">${p.Local}</span>
-                </div>
-                
-                <div class="resultado-col">
-                    <span class="resultado-nro">${p.Goles_L || '-'}</span>
-                    <span class="vs">vs</span>
-                    <span class="resultado-nro">${p.Goles_V || '-'}</span>
-                </div>
-
-                <div class="equipo-col">
-                    <span class="equipo-nombre">${p.Visitante}</span>
-                    <img src="img/escudos/${p.Visitante}.png" onerror="this.src='img/escudos/default.png'" class="escudo-fixture">
-                </div>
-            </div>
-            <small style="color: ${p.Estado === 'Jugado' ? 'green' : 'orange'}">${p.Estado}</small>
-        </div>
-    `).join('') || '<p>No hay partidos programados</p>';
+.fixture-fila {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin: 10px 0;
 }
 
+.equipo-col {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 42%;
+}
+
+.equipo-col:last-child {
+    justify-content: flex-end;
+    text-align: right;
+}
+
+.escudo-fixture {
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
+}
+
+.resultado-col {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.vs {
+    font-size: 0.8rem;
+    color: #777;
+}
+
+.equipo-nombre {
+    font-size: 0.9rem;
+}
