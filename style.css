@@ -1,114 +1,93 @@
-/* DISEÑO TIPO ELIMINATORIAS CONMEBOL */
+/* Reset general */
 body {
-    background-color: #0d1117; /* Fondo muy oscuro profesional */
-    color: #ffffff;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f9;
+    color: #333;
+    text-align: center;
 }
 
+/* CONTENEDOR DE BANNER (CARRUSEL) */
+.banner-container {
+    width: 100%;
+    max-width: 1000px; /* Ancho máximo para que no sea gigante en PC */
+    margin: 0 auto;
+    overflow: hidden;
+    background: #eee;
+}
+
+#img-banner {
+    width: 100%;       /* Obliga a la imagen a ocupar el ancho del contenedor */
+    height: auto;      /* Mantiene la proporción */
+    display: block;
+    transition: opacity 0.8s ease-in-out;
+}
+
+/* TABLAS */
 .table-responsive {
-    background: transparent;
-    padding: 10px;
-    overflow-x: auto;
+    width: 95%;
+    max-width: 1000px;
+    margin: 20px auto;
+    overflow-x: auto; /* Permite scroll lateral en celulares */
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
 table {
     width: 100%;
-    border-collapse: separate;
-    border-spacing: 0 8px; /* Espacio entre filas para el efecto de tarjetas */
-    min-width: 600px;
+    border-collapse: collapse;
+    min-width: 600px; /* Para que los datos no se amontonen */
 }
 
-/* Encabezados de columna */
-thead th {
-    background-color: transparent;
-    color: #8b949e;
-    text-transform: uppercase;
-    font-size: 0.75rem;
-    letter-spacing: 1px;
-    padding-bottom: 10px;
-    border: none;
-}
-
-/* Estilo de cada fila (Tarjeta) */
-tbody tr {
-    background: linear-gradient(90deg, #161b22 0%, #0d1117 100%);
-    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
-    transition: transform 0.2s;
-}
-
-tbody tr:hover {
-    transform: scale(1.01);
-    background: #1c2128;
-}
-
-/* Celdas */
-td {
+th, td {
     padding: 12px 8px;
-    border: none;
-    font-weight: 500;
+    border-bottom: 1px solid #ddd;
+    text-align: center;
 }
 
-/* Columna de Posición (Número a la izquierda) */
-td:first-child {
-    border-radius: 5px 0 0 5px;
-    background: #004d99; /* Color para el número de posición */
+th {
+    background-color: #004d99;
     color: white;
-    font-weight: bold;
-    width: 40px;
 }
 
-/* Escudos Circulares */
+/* ESCUDOS EN TABLA */
 .escudo-td {
     text-align: left;
     display: flex;
     align-items: center;
-    gap: 15px;
-    min-width: 200px;
+    gap: 10px;
 }
 
 .escudo-td img {
-    width: 35px;
-    height: 35px;
-    border-radius: 50%; /* Hace el escudo circular */
-    border: 2px solid #30363d;
-    background: white;
+    width: 25px;
+    height: 25px;
     object-fit: contain;
 }
 
-/* Resaltar columna de Puntos (PTS) */
-td:last-child {
-    border-radius: 0 5px 5px 0;
-    background: rgba(0, 77, 153, 0.3);
-    color: #58a6ff;
-    font-size: 1.1rem;
-    font-weight: bold;
-
-    h1, h2 {
-    color: #f0f6fc;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-}
-
-button {
-    background: #21262d;
-    border: 1px solid #30363d;
-    color: #c9d1d9;
-    border-radius: 6px;
-    padding: 8px 16px;
+/* BOTONES */
+#menu-categorias button {
+    padding: 10px 15px;
+    margin: 5px;
+    cursor: pointer;
+    border: none;
+    border-radius: 4px;
+    background: #ddd;
 }
 
 button.activo {
-    background: #238636; /* Verde tipo "Play" */
-    border-color: #2ea043;
+    background: #004d99 !important;
     color: white;
 }
 
+/* FIXTURE */
 .partido-card {
-    background: #161b22;
-    border: 1px solid #30363d;
-    color: white;
+    background: white;
+    margin: 10px auto;
+    padding: 15px;
+    width: 90%;
+    max-width: 500px;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
 }
-}
-
-/* Estilo para los números negativos en DG */
-.dg-negativa { color: #ff7b72; }
-.dg-positiva { color: #3fb950; }
