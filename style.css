@@ -55,6 +55,22 @@ table {
     min-width: 600px;
 }
 
+/* Esto aplica color a las filas PARES (2, 4, 6...) */
+tbody tr:nth-child(even) {
+    background-color: #f2f2f2; /* Un gris muy suave */
+}
+
+/* Esto asegura que las filas IMPARES (1, 3, 5...) sean blancas */
+tbody tr:nth-child(odd) {
+    background-color: #ffffff;
+}
+
+/* EFECTO EXTRA: Resaltar la fila cuando pasas el mouse por encima */
+tbody tr:hover {
+    background-color: #e8f0fe !important; /* Un celeste muy clarito */
+    transition: background-color 0.2s;
+}
+
 th, td {
     padding: 12px 8px;
     border-bottom: 1px solid #ddd;
