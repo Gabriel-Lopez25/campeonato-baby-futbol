@@ -185,27 +185,39 @@ function generarFixture(cat, torneo) {
     
     const partidos = datosPartidos.filter(p => p.Categoria === cat && p.Torneo === torneo);
     
-    contenedor.innerHTML = partidos.map(p => `
+    contenedor.innerHTML = partidos.map(p => {
+        // Si no hay rival o el campo está vacío, lo tratamos como Fecha Libre
+        const esLibreLocal = !p.Local || p.Local.toLowerCase().includes('libre');
+        const esLibreVisitante = !p.Visitante || p.Visitante.toLowerCase().includes('libre');
+
+        const nombreLocal = esLibreLocal ? "FECHA LIBRE" : p.Local;
+        const nombreVisita = esLibreVisitante ? "FECHA LIBRE" : p.Visitante;
+
+        // Si es libre, no buscamos escudo, ponemos una imagen genérica o nada
+        const imgLocal = esLibreLocal ? 'img/escudos/default.png' : `img/escudos/${p.Local}.png`;
+        const imgVisita = esLibreVisitante ? 'img/escudos/default.png' : `img/escudos/${p.Visitante}.png`;
+
+        return `
         <div class="partido-card">
             <small>Fecha ${p.Fecha || '-'}</small>
             <div class="fixture-fila">
                 <div class="equipo-col">
-                    <img src="img/escudos/${p.Local}.png" onerror="this.src='img/escudos/default.png'" class="escudo-fixture">
-                    <span class="equipo-nombre">${p.Local}</span>
+                    <img src="${imgLocal}" onerror="this.src='img/escudos/default.png'" class="escudo-fixture">
+                    <span class="equipo-nombre">${nombreLocal}</span>
                 </div>
                 
                 <div class="resultado-col">
-                    <span class="resultado-nro">${p.Goles_L || '-'}</span>
+                    <span class="resultado-nro">${esLibreLocal || esLibreVisitante ? '-' : (p.Goles_L || '-')}</span>
                     <span class="vs">vs</span>
-                    <span class="resultado-nro">${p.Goles_V || '-'}</span>
+                    <span class="resultado-nro">${esLibreLocal || esLibreVisitante ? '-' : (p.Goles_V || '-')}</span>
                 </div>
 
                 <div class="equipo-col">
-                    <span class="equipo-nombre">${p.Visitante}</span>
-                    <img src="img/escudos/${p.Visitante}.png" onerror="this.src='img/escudos/default.png'" class="escudo-fixture">
+                    <span class="equipo-nombre">${nombreVisita}</span>
+                    <img src="${imgVisita}" onerror="this.src='img/escudos/default.png'" class="escudo-fixture">
                 </div>
             </div>
             <small style="color: ${p.Estado === 'Jugado' ? 'green' : 'orange'}">${p.Estado}</small>
-        </div>
-    `).join('') || '<p>No hay partidos programados</p>';
+        </div>`;
+    }).join('') || '<p>No hay partidos programados</p>';
 }
