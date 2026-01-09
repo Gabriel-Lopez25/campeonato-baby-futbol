@@ -186,14 +186,18 @@ function generarFixture(cat, torneo) {
     const partidos = datosPartidos.filter(p => p.Categoria === cat && p.Torneo === torneo);
     
     contenedor.innerHTML = partidos.map(p => {
-        // Si no hay rival o el campo está vacío, lo tratamos como Fecha Libre
+        // Detectamos si alguno de los lados dice "Libre" o está vacío
         const esLibreLocal = !p.Local || p.Local.toLowerCase().includes('libre');
         const esLibreVisitante = !p.Visitante || p.Visitante.toLowerCase().includes('libre');
 
+        // Definimos el nombre y la clase CSS
         const nombreLocal = esLibreLocal ? "FECHA LIBRE" : p.Local;
         const nombreVisita = esLibreVisitante ? "FECHA LIBRE" : p.Visitante;
+        
+        const claseLocal = esLibreLocal ? "texto-libre" : "";
+        const claseVisita = esLibreVisitante ? "texto-libre" : "";
 
-        // Si es libre, no buscamos escudo, ponemos una imagen genérica o nada
+        // Si es libre, usamos el escudo por defecto o puedes crear uno que diga "Libre"
         const imgLocal = esLibreLocal ? 'img/escudos/default.png' : `img/escudos/${p.Local}.png`;
         const imgVisita = esLibreVisitante ? 'img/escudos/default.png' : `img/escudos/${p.Visitante}.png`;
 
@@ -203,7 +207,7 @@ function generarFixture(cat, torneo) {
             <div class="fixture-fila">
                 <div class="equipo-col">
                     <img src="${imgLocal}" onerror="this.src='img/escudos/default.png'" class="escudo-fixture">
-                    <span class="equipo-nombre">${nombreLocal}</span>
+                    <span class="equipo-nombre ${claseLocal}">${nombreLocal}</span>
                 </div>
                 
                 <div class="resultado-col">
@@ -213,7 +217,7 @@ function generarFixture(cat, torneo) {
                 </div>
 
                 <div class="equipo-col">
-                    <span class="equipo-nombre">${nombreVisita}</span>
+                    <span class="equipo-nombre ${claseVisita}">${nombreVisita}</span>
                     <img src="${imgVisita}" onerror="this.src='img/escudos/default.png'" class="escudo-fixture">
                 </div>
             </div>
