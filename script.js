@@ -194,6 +194,8 @@ function mostrarAcumuladoClubes() {
     dibujarTabla(ranking);
 }
 
+
+
 function generarFixture(cat, torneo) {
     const contenedor = document.getElementById('lista-partidos');
     if (!contenedor) return;
@@ -203,6 +205,7 @@ function generarFixture(cat, torneo) {
     contenedor.innerHTML = partidos.map(p => {
         const esLibreLocal = !esEquipoReal(p.Local);
         const esLibreVisitante = !esEquipoReal(p.Visitante);
+        const esFechaLibre = esLibreLocal || esLibreVisitante;
 
         const nombreLocal = esLibreLocal ? "FECHA LIBRE" : p.Local;
         const nombreVisita = esLibreVisitante ? "FECHA LIBRE" : p.Visitante;
@@ -210,30 +213,36 @@ function generarFixture(cat, torneo) {
         const claseLocal = esLibreLocal ? "texto-libre" : "";
         const claseVisita = esLibreVisitante ? "texto-libre" : "";
 
-        const imgLocal = esLibreLocal ? 'img/escudos/default.png' : `img/escudos/${p.Local}.png`;
-        const imgVisita = esLibreVisitante ? 'img/escudos/default.png' : `img/escudos/${p.Visitante}.png`;
+        // Si es libre, no mostramos imagen (src vacío y estilo oculto)
+        const imgLocal = esLibreLocal ? "" : `img/escudos/${p.Local}.png`;
+        const imgVisita = esLibreVisitante ? "" : `img/escudos/${p.Visitante}.png`;
+        
+        const styleImgLocal = esLibreLocal ? "display:none" : "";
+        const styleImgVisita = esLibreVisitante ? "display:none" : "";
 
         return `
         <div class="partido-card">
             <small>Fecha ${p.Fecha || '-'}</small>
             <div class="fixture-fila">
-                <div class="equipo-col">
-                    <img src="${imgLocal}" onerror="this.src='img/escudos/default.png'" class="escudo-fixture">
+                <div class="equipo-col" style="${esLibreLocal ? 'justify-content:center; width:100%' : ''}">
+                    <img src="${imgLocal}" onerror="this.src='img/escudos/default.png'" class="escudo-fixture" style="${styleImgLocal}">
                     <span class="equipo-nombre ${claseLocal}">${nombreLocal}</span>
                 </div>
                 
+                ${!esFechaLibre ? `
                 <div class="resultado-col">
-                    <span class="resultado-nro">${esLibreLocal || esLibreVisitante ? '-' : (p.Goles_L || '-')}</span>
+                    <span class="resultado-nro">${p.Goles_L || '-'}</span>
                     <span class="vs">vs</span>
-                    <span class="resultado-nro">${esLibreLocal || esLibreVisitante ? '-' : (p.Goles_V || '-')}</span>
+                    <span class="resultado-nro">${p.Goles_V || '-'}</span>
                 </div>
+                ` : ''}
 
-                <div class="equipo-col">
+                <div class="equipo-col" style="${esLibreVisitante ? 'justify-content:center; width:100%' : ''}">
                     <span class="equipo-nombre ${claseVisita}">${nombreVisita}</span>
-                    <img src="${imgVisita}" onerror="this.src='img/escudos/default.png'" class="escudo-fixture">
+                    <img src="${imgVisita}" onerror="this.src='img/escudos/default.png'" class="escudo-fixture" style="${styleImgVisita}">
                 </div>
             </div>
-            <small style="color: ${p.Estado === 'Jugado' ? 'green' : 'orange'}">${p.Estado}</small>
+            ${!esFechaLibre ? `<small style="color: ${p.Estado === 'Jugado' ? 'green' : 'orange'}">${p.Estado}</small>` : ''}
         </div>`;
     }).join('') || '<p>No hay partidos programados</p>';
 }
