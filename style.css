@@ -164,3 +164,12 @@ button.activo {
 .equipo-nombre {
     font-size: 0.9rem;
 }
+
+/* Estilo para el texto de Fecha Libre */
+.texto-libre {
+    color: #28a745 !important; /* Un verde deportivo y vibrante */
+    font-weight: bold !important;
+    text-transform: uppercase; /* Todo en mayúsculas para que resalte */
+    letter-spacing: 1px;
+}
+
