@@ -1,4 +1,4 @@
-const URL_CSV = "https://docs.google.com/spreadsheets/d/e/2PACX-1vT0ZWgVHyBlRk_nB1XxGtBMIvTd3wH_Bh9rneYgLQHpmj1JV5vVUOsVyTybUSGPkAqMYhk_55b9OE5B/pub?output=csv";
+const URL_CSV = "https://docs.google.com/spreadsheets/d/e/2PACX-1vT0ZWgVHyBlRk_nB1XxGtBMIvTd3wH_Bh9rneYgLQHpmj1JV5vVUOsVyTybUSGPkAqMYhk_55b9OE5B/pub?output=csv&cachebuster=" + Math.random();
 
 const PUBLICIDADES = [
     "img/publicidad/banner1.jpg",
@@ -35,9 +35,8 @@ async function cargarDatos() {
         const texto = await respuesta.text();
         datosPartidos = csvToJSON(texto);
         
-        // Cargar Fecha de Actualización desde la celda J2 (columna 10 del CSV aprox)
         if (datosPartidos.length > 0) {
-            const fechaManual = datosPartidos[0]["Actualizacion"]; // Lee la columna llamada Actualizacion
+            const fechaManual = datosPartidos[0]["Actualizacion"];
             if (fechaManual) document.getElementById('fecha-actualizacion').innerText = "Actualizado: " + fechaManual;
         }
 
@@ -76,20 +75,32 @@ function seleccionarCat(anio) {
 function actualizarVista() {
     const torneoEl = document.getElementById('select-torneo');
     const torneo = torneoEl ? torneoEl.value : "Apertura";
+    document.getElementById('titulo-tabla').innerText = "Tabla de Posiciones";
     generarTabla(categoriaActual, torneo);
     generarFixture(categoriaActual, torneo);
+}
+
+// FUNCION PARA VALIDAR SI UN NOMBRE ES EQUIPO REAL O FECHA LIBRE
+function esEquipoReal(nombre) {
+    if (!nombre) return false;
+    const n = nombre.toLowerCase();
+    return !n.includes('libre') && n.trim() !== "";
 }
 
 function generarTabla(cat, torneo) {
     let tabla = {};
     
-    // 1. Identificar TODOS los clubes que participan en esta categoría (aunque no hayan jugado)
+    // 1. Identificar clubes REALES
     datosPartidos.filter(p => p.Categoria === cat).forEach(p => {
-        if (!tabla[p.Local]) tabla[p.Local] = { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0 };
-        if (!tabla[p.Visitante]) tabla[p.Visitante] = { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0 };
+        if (esEquipoReal(p.Local)) {
+            if (!tabla[p.Local]) tabla[p.Local] = { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0 };
+        }
+        if (esEquipoReal(p.Visitante)) {
+            if (!tabla[p.Visitante]) tabla[p.Visitante] = { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0 };
+        }
     });
 
-    // 2. Procesar solo los partidos JUGADOS para los puntos
+    // 2. Procesar partidos
     const partidosJugados = datosPartidos.filter(p => 
         p.Categoria === cat && 
         (torneo === "Anual" ? (p.Torneo === "Apertura" || p.Torneo === "Clausura") : p.Torneo === torneo) &&
@@ -97,16 +108,18 @@ function generarTabla(cat, torneo) {
     );
 
     partidosJugados.forEach(p => {
-        const gl = parseInt(p.Goles_L) || 0;
-        const gv = parseInt(p.Goles_V) || 0;
+        if (esEquipoReal(p.Local) && esEquipoReal(p.Visitante)) {
+            const gl = parseInt(p.Goles_L) || 0;
+            const gv = parseInt(p.Goles_V) || 0;
 
-        tabla[p.Local].pj++; tabla[p.Visitante].pj++;
-        tabla[p.Local].gf += gl; tabla[p.Local].gc += gv;
-        tabla[p.Visitante].gf += gv; tabla[p.Visitante].gc += gl;
+            tabla[p.Local].pj++; tabla[p.Visitante].pj++;
+            tabla[p.Local].gf += gl; tabla[p.Local].gc += gv;
+            tabla[p.Visitante].gf += gv; tabla[p.Visitante].gc += gl;
 
-        if (gl > gv) { tabla[p.Local].pg++; tabla[p.Local].pts += 3; tabla[p.Visitante].pp++; }
-        else if (gl < gv) { tabla[p.Visitante].pg++; tabla[p.Visitante].pts += 3; tabla[p.Local].pp++; }
-        else { tabla[p.Local].pe++; tabla[p.Visitante].pe++; tabla[p.Local].pts += 1; tabla[p.Visitante].pts += 1; }
+            if (gl > gv) { tabla[p.Local].pg++; tabla[p.Local].pts += 3; tabla[p.Visitante].pp++; }
+            else if (gl < gv) { tabla[p.Visitante].pg++; tabla[p.Visitante].pts += 3; tabla[p.Local].pp++; }
+            else { tabla[p.Local].pe++; tabla[p.Visitante].pe++; tabla[p.Local].pts += 1; tabla[p.Visitante].pts += 1; }
+        }
     });
 
     const ranking = Object.keys(tabla).map(nombre => ({
@@ -121,10 +134,9 @@ function dibujarTabla(datos) {
     const thead = document.querySelector('#tabla-posiciones thead');
     if (!tbody || !thead) return;
 
-    thead.innerHTML = `<tr><th></th><th>Equipo</th><th>PJ</th><th>PG</th><th>PE</th><th>PP</th><th>GF</th><th>GC</th><th>DG</th><th>PTS</th></tr>`;
+    thead.innerHTML = `<tr><th>Pos</th><th>Equipo</th><th>PJ</th><th>PG</th><th>PE</th><th>PP</th><th>GF</th><th>GC</th><th>DG</th><th>PTS</th></tr>`;
     
     tbody.innerHTML = datos.map((club, i) => {
-        // Lógica para color de DG
         const dgClass = club.dg > 0 ? 'dg-positiva' : (club.dg < 0 ? 'dg-negativa' : '');
         const dgSigno = club.dg > 0 ? '+' + club.dg : club.dg;
 
@@ -142,7 +154,7 @@ function dibujarTabla(datos) {
             <td>${club.gf}</td>
             <td>${club.gc}</td>
             <td class="${dgClass}">${dgSigno}</td>
-            <td>${club.pts}</td>
+            <td><strong>${club.pts}</strong></td>
         </tr>`;
     }).join('');
 }
@@ -150,25 +162,28 @@ function dibujarTabla(datos) {
 function mostrarAcumuladoClubes() {
     let acumulado = {};
     
-    // Identificar todos los clubes en el sistema
     datosPartidos.forEach(p => {
-        if (!p.Local || !p.Visitante) return;
-        if (!acumulado[p.Local]) acumulado[p.Local] = { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0 };
-        if (!acumulado[p.Visitante]) acumulado[p.Visitante] = { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0 };
+        if (esEquipoReal(p.Local)) {
+            if (!acumulado[p.Local]) acumulado[p.Local] = { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0 };
+        }
+        if (esEquipoReal(p.Visitante)) {
+            if (!acumulado[p.Visitante]) acumulado[p.Visitante] = { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0 };
+        }
     });
 
-    // Sumar todos los partidos jugados de todas las categorías
     datosPartidos.filter(p => p.Estado === "Jugado").forEach(p => {
-        const gl = parseInt(p.Goles_L) || 0;
-        const gv = parseInt(p.Goles_V) || 0;
+        if (esEquipoReal(p.Local) && esEquipoReal(p.Visitante)) {
+            const gl = parseInt(p.Goles_L) || 0;
+            const gv = parseInt(p.Goles_V) || 0;
 
-        acumulado[p.Local].pj++; acumulado[p.Visitante].pj++;
-        acumulado[p.Local].gf += gl; acumulado[p.Local].gc += gv;
-        acumulado[p.Visitante].gf += gv; acumulado[p.Visitante].gc += gl;
+            acumulado[p.Local].pj++; acumulado[p.Visitante].pj++;
+            acumulado[p.Local].gf += gl; acumulado[p.Local].gc += gv;
+            acumulado[p.Visitante].gf += gv; acumulado[p.Visitante].gc += gl;
 
-        if (gl > gv) { acumulado[p.Local].pg++; acumulado[p.Local].pts += 3; acumulado[p.Visitante].pp++; }
-        else if (gl < gv) { acumulado[p.Visitante].pg++; acumulado[p.Visitante].pts += 3; acumulado[p.Local].pp++; }
-        else { acumulado[p.Local].pe++; acumulado[p.Visitante].pe++; acumulado[p.Local].pts += 1; acumulado[p.Visitante].pts += 1; }
+            if (gl > gv) { acumulado[p.Local].pg++; acumulado[p.Local].pts += 3; acumulado[p.Visitante].pp++; }
+            else if (gl < gv) { acumulado[p.Visitante].pg++; acumulado[p.Visitante].pts += 3; acumulado[p.Local].pp++; }
+            else { acumulado[p.Local].pe++; acumulado[p.Visitante].pe++; acumulado[p.Local].pts += 1; acumulado[p.Visitante].pts += 1; }
+        }
     });
 
     const ranking = Object.keys(acumulado).map(nombre => ({
@@ -186,18 +201,15 @@ function generarFixture(cat, torneo) {
     const partidos = datosPartidos.filter(p => p.Categoria === cat && p.Torneo === torneo);
     
     contenedor.innerHTML = partidos.map(p => {
-        // Detectamos si alguno de los lados dice "Libre" o está vacío
-        const esLibreLocal = !p.Local || p.Local.toLowerCase().includes('libre');
-        const esLibreVisitante = !p.Visitante || p.Visitante.toLowerCase().includes('libre');
+        const esLibreLocal = !esEquipoReal(p.Local);
+        const esLibreVisitante = !esEquipoReal(p.Visitante);
 
-        // Definimos el nombre y la clase CSS
         const nombreLocal = esLibreLocal ? "FECHA LIBRE" : p.Local;
         const nombreVisita = esLibreVisitante ? "FECHA LIBRE" : p.Visitante;
         
         const claseLocal = esLibreLocal ? "texto-libre" : "";
         const claseVisita = esLibreVisitante ? "texto-libre" : "";
 
-        // Si es libre, usamos el escudo por defecto o puedes crear uno que diga "Libre"
         const imgLocal = esLibreLocal ? 'img/escudos/default.png' : `img/escudos/${p.Local}.png`;
         const imgVisita = esLibreVisitante ? 'img/escudos/default.png' : `img/escudos/${p.Visitante}.png`;
 
