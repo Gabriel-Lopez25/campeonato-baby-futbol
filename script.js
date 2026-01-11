@@ -9,7 +9,7 @@ const PUBLICIDADES = [
 let datosPartidos = [];
 let categoriaActual = "2013";
 
-<script>
+
   window.addEventListener("load", () => {
     const popup = document.getElementById("popup-overlay");
     const closeBtn = document.getElementById("popup-close");
