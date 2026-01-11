@@ -9,10 +9,22 @@ const PUBLICIDADES = [
 let datosPartidos = [];
 let categoriaActual = "2013";
 
-window.addEventListener("load", () => {
-    cargarDatos();
-    iniciarCarrusel();
-});
+<script>
+  window.addEventListener("load", () => {
+    const popup = document.getElementById("popup-overlay");
+    const closeBtn = document.getElementById("popup-close");
+
+    if (sessionStorage.getItem("popupClosed")) {
+      popup.style.display = "none";
+      return;
+    }
+
+    closeBtn.addEventListener("click", () => {
+      popup.style.display = "none";
+      sessionStorage.setItem("popupClosed", "true");
+    });
+  });
+</script>
 
 
 
