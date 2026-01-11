@@ -186,6 +186,13 @@ tbody tr:hover { background-color: #bbdefb; }
   margin-bottom: 5px;
 }
 
+.escudo-fixture {
+    width: 45px;
+    height: 45px;
+    object-fit: contain;
+    margin-bottom: 5px;
+}
+
 .equipo-nombre {
   font-weight: bold;
   font-size: 0.9rem;
