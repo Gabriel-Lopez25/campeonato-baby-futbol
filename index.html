@@ -1,105 +1,92 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>App Campeonato Baby Fútbol</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>App Campeonato Baby Fútbol</title>
 
-  <link rel="stylesheet" href="style.css">
+    <!-- ESTILOS -->
+    <link rel="stylesheet" href="style.css">
 
-  <!-- Google Analytics GA4 -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-GRTPMCMN89"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-GRTPMCMN89', { anonymize_ip: true });
-  </script>
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GRTPMCMN89"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-GRTPMCMN89', {
+        anonymize_ip: true
+      });
+    </script>
 </head>
 
 <body>
 
-  <!-- POPUP -->
- <div id="popup-overlay">
+<!-- ================= POPUP ================= -->
+<div id="popup-overlay">
   <div id="popup-content">
     <button id="popup-close" aria-label="Cerrar popup">✕</button>
-    <img src="img/popup.png" alt="Información importante">
+    <img src="img/popup.png" alt="Publicidad o anuncio">
   </div>
 </div>
 
-  
+<!-- ============== BANNER PUBLICIDAD ============== -->
+<section id="banner-publicidad">
+  <div class="banner-container">
+    <img id="img-banner" src="img/publicidad/banner1.jpg" alt="Sponsor">
+  </div>
+</section>
 
-  <!-- BANNER PUBLICIDAD -->
-  <section id="banner-publicidad">
-    <div class="banner-container">
-      <img id="img-banner" src="img/publicidad/banner1.jpg" alt="Sponsor">
+<header>
+  <h1>Liga Local de Baby Fútbol</h1>
+  <p id="fecha-actualizacion">Actualizado: --/--</p>
+</header>
+
+<nav id="menu-categorias">
+  <button onclick="seleccionarCat('2013')">2013</button>
+  <button onclick="seleccionarCat('2014')">2014</button>
+  <button onclick="seleccionarCat('2015')">2015</button>
+  <button onclick="seleccionarCat('2016')">2016</button>
+</nav>
+
+<div class="filtros-torneo">
+  <select id="select-torneo" onchange="actualizarVista()">
+    <option value="Apertura">Torneo Apertura</option>
+    <option value="Clausura">Torneo Clausura</option>
+    <option value="Anual">Tabla Anual</option>
+  </select>
+
+  <button onclick="mostrarAcumuladoClubes()" class="btn-acumulado">
+    Acumulado Clubes
+  </button>
+</div>
+
+<main id="app-contenido">
+  <div id="loading">Cargando datos...</div>
+
+  <section id="seccion-tabla">
+    <h2 id="titulo-tabla">Tabla de Posiciones</h2>
+    <div class="table-responsive">
+      <table id="tabla-posiciones">
+        <thead></thead>
+        <tbody id="body-tabla"></tbody>
+      </table>
     </div>
   </section>
 
-  <header>
-    <h1>Liga Local de Baby Fútbol</h1>
-    <p id="fecha-actualizacion">Actualizado: --/--</p>
-  </header>
+  <section id="seccion-fixture">
+    <h2>Resultados y Fixture</h2>
+    <div id="lista-partidos"></div>
+  </section>
+</main>
 
-  <nav id="menu-categorias">
-    <button onclick="seleccionarCat('2013')">2013</button>
-    <button onclick="seleccionarCat('2014')">2014</button>
-    <button onclick="seleccionarCat('2015')">2015</button>
-    <button onclick="seleccionarCat('2016')">2016</button>
-  </nav>
+<footer>
+  <p>&copy; 2026 - Gestión de Campeonato Local</p>
+</footer>
 
-  <div class="filtros-torneo">
-    <select id="select-torneo" onchange="actualizarVista()">
-      <option value="Apertura">Torneo Apertura</option>
-      <option value="Clausura">Torneo Clausura</option>
-      <option value="Anual">Tabla Anual (Cat.)</option>
-    </select>
-    <button onclick="mostrarAcumuladoClubes()" class="btn-acumulado">
-      Acumulado Clubes
-    </button>
-  </div>
-
-  <main id="app-contenido">
-    <div id="loading">Cargando datos...</div>
-
-    <section id="seccion-tabla">
-      <h2 id="titulo-tabla">Tabla de Posiciones</h2>
-      <div class="table-responsive">
-        <table id="tabla-posiciones">
-          <thead></thead>
-          <tbody id="body-tabla"></tbody>
-        </table>
-      </div>
-    </section>
-
-    <section id="seccion-fixture">
-      <h2>Resultados y Fixture</h2>
-      <div id="lista-partidos"></div>
-    </section>
-  </main>
-
-  <footer>
-    <p>&copy; 2026 - Gestión de Campeonato Local</p>
-  </footer>
-
-  <script src="script.js"></script>
-
-  <!-- SCRIPT POPUP -->
-  <script>
-    window.addEventListener("load", () => {
-      const popup = document.getElementById("popup-overlay");
-
-      if (!sessionStorage.getItem("popupShown")) {
-        setTimeout(() => {
-          popup.style.display = "none";
-          sessionStorage.setItem("popupShown", "true");
-        }, 5000);
-      } else {
-        popup.style.display = "none";
-      }
-    });
-  </script>
+<!-- SCRIPT -->
+<script src="script.js"></script>
 
 </body>
 </html>
-
