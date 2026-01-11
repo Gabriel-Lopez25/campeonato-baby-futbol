@@ -8,6 +8,8 @@ body {
     text-align: center;
 }
 
+
+
 #popup-overlay {
   position: fixed;
   top: 0;
@@ -21,12 +23,38 @@ body {
   z-index: 9999;
 }
 
+#popup-content {
+  position: relative;
+  width: 60%;
+  max-width: 700px;
+}
+
 #popup-content img {
-  max-width: 90%;
-  max-height: 90%;
+  width: 100%;
   border-radius: 16px;
   box-shadow: 0 10px 40px rgba(0,0,0,0.6);
 }
+
+/* BOTÓN CERRAR */
+#popup-close {
+  position: absolute;
+  top: -14px;
+  right: -14px;
+  background: #000;
+  color: #fff;
+  border: none;
+  font-size: 20px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+}
+
+#popup-close:hover {
+  background: #d32f2f;
+}
+
 
 
 /* CONTENEDOR DEL BANNER */
