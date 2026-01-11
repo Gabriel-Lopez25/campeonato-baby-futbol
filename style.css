@@ -1,15 +1,33 @@
-/* Reset general */
+/* ================== GENERAL ================== */
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f4f4f9;
-    color: #333;
-    text-align: center;
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f4f6f8;
 }
 
+header, footer {
+  text-align: center;
+  padding: 10px;
+  background: #222;
+  color: #fff;
+}
 
+/* ================== BANNER STICKY ================== */
+#banner-publicidad {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: #000;
+}
 
+.banner-container img {
+  width: 100%;
+  max-height: 120px;
+  object-fit: cover;
+  transition: opacity 0.8s ease;
+}
+
+/* ================== POPUP ================== */
 #popup-overlay {
   position: fixed;
   top: 0;
@@ -38,187 +56,48 @@ body {
 /* BOTÓN CERRAR */
 #popup-close {
   position: absolute;
-  top: -14px;
-  right: -14px;
+  top: -12px;
+  right: -12px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
   background: #000;
   color: #fff;
   border: none;
   font-size: 20px;
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
   cursor: pointer;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.4);
 }
 
 #popup-close:hover {
   background: #d32f2f;
 }
 
-
-
-/* CONTENEDOR DEL BANNER */
-/* Asegúrate de que en el HTML diga class="banner-container" */
-.banner-container {
-    width: 100%;
-    max-width: 1000px;
-    height: 200px;      /* Altura fija en PC */
-    margin: 0 auto;
-    overflow: hidden;
-    background-color: #000;
-    position: relative;
-    border-bottom: 3px solid #004d99;
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  #popup-content {
+    width: 90%;
+  }
 }
 
-/* LA IMAGEN ADENTRO DEL BANNER */
-#img-banner {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;  /* Ajusta la imagen al recuadro sin deformar */
-    object-position: center;
-    display: block;
-    transition: opacity 1.0s ease-in-out;
-}
-
-/* Ajuste para celulares */
-@media (max-width: 600px) {
-    .banner-container {
-        height: 120px; /* Altura más pequeña en móviles */
-    }
-}
-
-/* TABLAS */
-.table-responsive {
-    width: 95%;
-    max-width: 1000px;
-    margin: 20px auto;
-    overflow-x: auto;
-    background: white;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
-
+/* ================== TABLAS ================== */
 table {
-    width: 100%;
-    border-collapse: collapse;
-    min-width: 600px;
-}
-
-/* Esto aplica color a las filas PARES (2, 4, 6...) */
-tbody tr:nth-child(even) {
-    background-color: #e3f2fd; /* Un celeste muy suave */
-}
-
-/* Esto asegura que las filas IMPARES (1, 3, 5...) sean blancas */
-tbody tr:nth-child(odd) {
-    background-color: #ffffff;
-}
-
-/* EFECTO EXTRA: Resaltar la fila cuando pasas el mouse por encima */
-tbody tr:hover {
-    background-color: #25D366 !important; /* Un celeste muy clarito */
-    transition: background-color 0.3s;
+  width: 100%;
+  border-collapse: collapse;
 }
 
 th, td {
-    padding: 12px 8px;
-    border-bottom: 1px solid #ddd;
-    text-align: center;
+  padding: 6px;
+  border-bottom: 1px solid #ccc;
+  text-align: center;
 }
 
-th {
-    background-color: #004d99;
-    color: white;
-}
+.dg-positiva { color: green; }
+.dg-negativa { color: red; }
 
-/* ESCUDOS EN TABLA */
-.escudo-td {
-    text-align: left;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.escudo-td img {
-    width: 25px;
-    height: 25px;
-    object-fit: contain;
-}
-
-/* BOTONES */
-#menu-categorias button {
-    padding: 10px 15px;
-    margin: 5px;
-    cursor: pointer;
-    border: none;
-    border-radius: 4px;
-    background: #ddd;
-}
-
-button.activo {
-    background: #004d99 !important;
-    color: white;
-}
-
-/* ESTILOS DEL FIXTURE (RESULTADOS) */
+/* ================== FIXTURE ================== */
 .partido-card {
-    background: white;
-    margin: 10px auto;
-    padding: 15px;
-    width: 90%;
-    max-width: 550px;
-    border-radius: 8px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  background: #fff;
+  margin: 10px;
+  padding: 10px;
+  border-radius: 10px;
 }
-
-.fixture-fila {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    margin: 10px 0;
-}
-
-.equipo-col {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    width: 42%;
-}
-
-.equipo-col:last-child {
-    justify-content: flex-end;
-    text-align: right;
-}
-
-.escudo-fixture {
-    width: 30px;
-    height: 30px;
-    object-fit: contain;
-}
-
-.resultado-col {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-weight: bold;
-    font-size: 1.1rem;
-}
-
-.vs {
-    font-size: 0.8rem;
-    color: #777;
-}
-
-.equipo-nombre {
-    font-size: 0.9rem;
-}
-
-/* Estilo para el texto de Fecha Libre */
-.texto-libre {
-    color: #28a745 !important; /* Un verde deportivo y vibrante */
-    font-weight: bold !important;
-    text-transform: uppercase; /* Todo en mayúsculas para que resalte */
-    letter-spacing: 1px;
-}
-
