@@ -58,8 +58,8 @@ header, footer {
 /* BOTÓN CERRAR */
 #popup-close {
   position: absolute;
-  top: -12px;
-  right: -12px;
+  top: -20px;
+  right: -20px;
   width: 36px;
   height: 36px;
   border-radius: 50%;
