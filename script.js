@@ -64,14 +64,26 @@ async function cargarDatos() {
 }
 
 function csvToJSON(csv) {
-  const lines = csv.split("\n");
-  const headers = lines[0].split(",");
-  return lines.slice(1).map(l => {
+  const lines = csv.trim().split(/\r?\n/);
+  const headers = lines[0].split(',').map(h => h.trim());
+  const result = [];
+
+  for (let i = 1; i < lines.length; i++) {
+    if (!lines[i]) continue;
+
+    const values = lines[i].split(',').map(v => v.trim());
     const obj = {};
-    l.split(",").forEach((v, i) => obj[headers[i]] = v);
-    return obj;
-  });
+
+    headers.forEach((header, index) => {
+      obj[header] = values[index] || "";
+    });
+
+    result.push(obj);
+  }
+
+  return result;
 }
+
 
 /* ================= LÓGICA ================= */
 function seleccionarCat(cat) {
