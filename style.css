@@ -43,8 +43,8 @@ header, footer {
 
 #popup-content {
   position: relative;
-  width: 60%;
-  max-width: 700px;
+  width: 40%;
+  max-width: 500px;
 }
 
 #popup-content img {
