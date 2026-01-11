@@ -5,87 +5,105 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>App Campeonato Baby Fútbol</title>
 
-    <!-- ESTILOS -->
     <link rel="stylesheet" href="style.css">
 
-    <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-GRTPMCMN89"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-
-      gtag('config', 'G-GRTPMCMN89', {
-        anonymize_ip: true
-      });
+      gtag('config', 'G-GRTPMCMN89', { anonymize_ip: true });
     </script>
 </head>
 
 <body>
 
-<!-- ================= POPUP ================= -->
 <div id="popup-overlay">
   <div id="popup-content">
     <button id="popup-close" aria-label="Cerrar popup">✕</button>
-    <img src="img/popup.png" alt="Publicidad o anuncio">
+    <img src="img/popup.png" alt="Anuncio importante" onerror="this.parentElement.parentElement.style.display='none'">
   </div>
 </div>
 
-<!-- ============== BANNER PUBLICIDAD ============== -->
 <section id="banner-publicidad">
   <div class="banner-container">
-    <img id="img-banner" src="img/publicidad/banner1.jpg" alt="Sponsor">
+    <img id="img-banner" src="img/publicidad/banner1.jpg" alt="Sponsor oficial">
   </div>
 </section>
 
 <header>
   <h1>Liga Local de Baby Fútbol</h1>
-  <p id="fecha-actualizacion">Actualizado: --/--</p>
+  <div class="status-bar">
+    <span id="fecha-actualizacion">Actualizado: --/--</span>
+  </div>
 </header>
 
 <nav id="menu-categorias">
-  <button onclick="seleccionarCat('2013')">2013</button>
+  <button onclick="seleccionarCat('2013')" class="activo">2013</button>
   <button onclick="seleccionarCat('2014')">2014</button>
   <button onclick="seleccionarCat('2015')">2015</button>
   <button onclick="seleccionarCat('2016')">2016</button>
 </nav>
 
-<div class="filtros-torneo">
-  <select id="select-torneo" onchange="actualizarVista()">
-    <option value="Apertura">Torneo Apertura</option>
-    <option value="Clausura">Torneo Clausura</option>
-    <option value="Anual">Tabla Anual</option>
-  </select>
+<div class="filtros-container">
+  <div class="filtros-torneo">
+    <label for="select-torneo">Ver torneo:</label>
+    <select id="select-torneo" onchange="actualizarVista()">
+      <option value="Apertura">Torneo Apertura</option>
+      <option value="Clausura">Torneo Clausura</option>
+      <option value="Anual">Tabla Anual</option>
+    </select>
+  </div>
 
   <button onclick="mostrarAcumuladoClubes()" class="btn-acumulado">
-    Acumulado Clubes
+    🏆 Acumulado Clubes
   </button>
 </div>
 
 <main id="app-contenido">
-  <div id="loading">Cargando datos...</div>
+  
+  <div id="loading">
+    <div class="spinner"></div>
+    <p>Cargando datos oficiales...</p>
+  </div>
 
   <section id="seccion-tabla">
     <h2 id="titulo-tabla">Tabla de Posiciones</h2>
     <div class="table-responsive">
       <table id="tabla-posiciones">
-        <thead></thead>
-        <tbody id="body-tabla"></tbody>
+        <thead>
+          <tr>
+            <th>Pos</th>
+            <th>Equipo</th>
+            <th>PJ</th>
+            <th>PG</th>
+            <th>PE</th>
+            <th>PP</th>
+            <th>GF</th>
+            <th>GC</th>
+            <th>DG</th>
+            <th>PTS</th>
+          </tr>
+        </thead>
+        <tbody id="body-tabla">
+          </tbody>
       </table>
     </div>
   </section>
 
   <section id="seccion-fixture">
-    <h2>Resultados y Fixture</h2>
-    <div id="lista-partidos"></div>
+    <h2>Resultados y Próximas Fechas</h2>
+    <div id="lista-partidos">
+      </div>
   </section>
+
 </main>
 
 <footer>
   <p>&copy; 2026 - Gestión de Campeonato Local</p>
+  <p><small>Datos vinculados a Google Sheets</small></p>
 </footer>
 
-<!-- SCRIPT -->
 <script src="script.js"></script>
 
 </body>
