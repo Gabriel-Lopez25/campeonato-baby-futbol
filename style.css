@@ -44,11 +44,13 @@ header, footer {
 #popup-content {
   position: relative;
   width: 40%;
-  max-width: 500px;
+  max-width: 480px;
+  max-height: 80vh;       /* 🔑 CLAVE */
 }
 
+
 #popup-content img {
-  width: 100%;
+  width: 75%;
   border-radius: 16px;
   box-shadow: 0 10px 40px rgba(0,0,0,0.6);
 }
