@@ -9,10 +9,13 @@ const PUBLICIDADES = [
 let datosPartidos = [];
 let categoriaActual = "2013";
 
-window.onload = () => {
+window.addEventListener("load", () => {
     cargarDatos();
     iniciarCarrusel();
-};
+});
+
+
+
 
 function iniciarCarrusel() {
     let index = 0;
