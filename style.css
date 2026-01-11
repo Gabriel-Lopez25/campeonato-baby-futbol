@@ -118,6 +118,24 @@ table {
   border-collapse: collapse;
 }
 
+/* CONTROL DE TAMAÑO DE ESCUDOS EN LA TABLA */
+.escudo-td img {
+    width: 30px;        /* Ancho pequeño para la tabla */
+    height: 30px;       /* Alto igual para que sea cuadrado */
+    object-fit: contain; /* Evita que el escudo se deforme */
+    vertical-align: middle; /* Lo alinea con el texto del nombre */
+    margin-right: 10px;  /* Separa el escudo del nombre del equipo */
+}
+
+/* Ajuste para que la celda del nombre sea flexible */
+.escudo-td {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; /* Alinea escudo y texto a la izquierda */
+    text-align: left;
+    min-width: 150px; /* Evita que el nombre se amontone */
+}
+
 thead {
   background: #004d99;
   color: #fff;
