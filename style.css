@@ -1,15 +1,22 @@
 /* ================== GENERAL ================== */
 body {
   margin: 0;
-  font-family: Arial, sans-serif;
-  background: #f4f6f8;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background: #f0f4f8; /* Un gris azulado muy suave */
+  color: #333;
 }
 
-header, footer {
-  text-align: center;
-  padding: 10px;
-  background: #222;
+header {
+  background: #004d99; /* Azul deportivo */
   color: #fff;
+  padding: 20px 10px;
+}
+
+footer {
+  background: #222;
+  color: #bbb;
+  padding: 15px;
+  font-size: 0.9rem;
 }
 
 /* ================== BANNER STICKY ================== */
@@ -18,23 +25,23 @@ header, footer {
   top: 0;
   z-index: 1000;
   background: #000;
+  border-bottom: 3px solid #f39c12; /* Línea dorada decorativa */
 }
 
 .banner-container img {
   width: 100%;
-  max-height: 120px;
+  max-height: 150px;
   object-fit: cover;
+  display: block;
   transition: opacity 0.8s ease;
 }
 
-/* ================== POPUP ================== */
+/* ================== POPUP MEJORADO ================== */
 #popup-overlay {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.75);
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.85);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -43,63 +50,164 @@ header, footer {
 
 #popup-content {
   position: relative;
-  width: 40%;
-  max-width: 480px;
-  max-height: 80vh;       /* 🔑 CLAVE */
+  width: 90%;
+  max-width: 400px; /* Tamaño ideal para móviles y PC */
 }
-
 
 #popup-content img {
-  width: 75%;
-  border-radius: 16px;
-  box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+  width: 100%; /* Ajustado al 100% del contenedor */
+  border-radius: 12px;
+  display: block;
 }
 
-/* BOTÓN CERRAR */
 #popup-close {
   position: absolute;
-  top: -20px;
-  right: -40px;
-  width: 36px;
-  height: 36px;
+  top: -15px;
+  right: -15px;
+  width: 35px;
+  height: 35px;
   border-radius: 50%;
-  background: #000;
+  background: #e74c3c;
   color: #fff;
-  border: none;
-  font-size: 20px;
+  border: 2px solid #fff;
+  font-size: 18px;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
 }
 
-#popup-close:hover {
-  background: #d32f2f;
+/* ================== MENÚ CATEGORÍAS ================== */
+#menu-categorias {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  padding: 15px;
+  background: #fff;
+  overflow-x: auto; /* Para que en móviles no se rompa */
 }
 
-/* RESPONSIVE */
-@media (max-width: 768px) {
-  #popup-content {
-    width: 90%;
-  }
+#menu-categorias button {
+  padding: 10px 20px;
+  border: 2px solid #004d99;
+  background: transparent;
+  color: #004d99;
+  font-weight: bold;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: 0.3s;
 }
 
-/* ================== TABLAS ================== */
+#menu-categorias button.activo, #menu-categorias button:hover {
+  background: #004d99;
+  color: #fff;
+}
+
+/* ================== TABLA CELESTE Y BLANCO ================== */
+.table-responsive {
+  overflow-x: auto;
+  margin: 20px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
 table {
   width: 100%;
   border-collapse: collapse;
 }
 
-th, td {
-  padding: 6px;
-  border-bottom: 1px solid #ccc;
-  text-align: center;
+thead {
+  background: #004d99;
+  color: #fff;
 }
 
-.dg-positiva { color: green; }
-.dg-negativa { color: red; }
+th, td {
+  padding: 12px 8px;
+  text-align: center;
+  border-bottom: 1px solid #eee;
+}
 
-/* ================== FIXTURE ================== */
+/* Efecto Cebra: Blanco y Celeste Suave */
+tbody tr:nth-child(odd) { background-color: #ffffff; }
+tbody tr:nth-child(even) { background-color: #e3f2fd; }
+
+tbody tr:hover { background-color: #bbdefb; }
+
+.dg-positiva { color: #27ae60; font-weight: bold; }
+.dg-negativa { color: #c0392b; font-weight: bold; }
+
+/* ================== FIXTURE Y FECHA LIBRE ================== */
 .partido-card {
   background: #fff;
-  margin: 10px;
-  padding: 10px;
-  border-radius: 10px;
+  margin: 15px;
+  padding: 15px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  border-left: 5px solid #004d99;
+}
+
+.fixture-fila {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.equipo-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+}
+
+.escudo-fixture {
+  width: 45px;
+  height: 45px;
+  object-fit: contain;
+  margin-bottom: 5px;
+}
+
+.equipo-nombre {
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+
+/* EL TOQUE VERDE PARA FECHA LIBRE */
+.texto-libre {
+  color: #27ae60 !important;
+  font-weight: 800 !important;
+  font-size: 1.1rem;
+}
+
+.resultado-col {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.vs {
+  font-size: 0.8rem;
+  color: #888;
+  text-transform: uppercase;
+}
+
+/* ================== BOTÓN ACUMULADO ================== */
+.btn-acumulado {
+  background: #f39c12;
+  color: #fff;
+  padding: 12px 25px;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  margin: 10px 0;
+  box-shadow: 0 4px 0 #d68910;
+}
+
+.btn-acumulado:active {
+  transform: translateY(2px);
+  box-shadow: 0 2px 0 #d68910;
 }
