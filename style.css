@@ -277,3 +277,57 @@ tbody tr:hover { background-color: #bbdefb; }
     font-weight: 800 !important;
     font-size: 1.1rem;
 }
+
+
+/* ==========================================================================
+   7. ESTILOS PARA LISTA DE PENDIENTES COMPACTA
+   ========================================================================== */
+
+/* Control de los escudos en la lista pequeña */
+.mini-escudo {
+    width: 22px !important;   /* Tamaño pequeño y fijo */
+    height: 22px !important;
+    object-fit: contain;
+    vertical-align: middle;
+    margin: 0 5px;
+}
+
+/* Ajustes de la tabla de pendientes */
+.tabla-pendientes {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+}
+
+.tabla-pendientes td {
+    padding: 10px 5px;
+    border-bottom: 1px solid #f0f0f0;
+    font-size: 0.85rem; /* Letra un poco más chica que la tabla principal */
+}
+
+/* Alineaciones para que el "vs" quede centrado */
+.txt-der { 
+    text-align: right; 
+    width: 40%; 
+    font-weight: 600;
+}
+
+.txt-izq { 
+    text-align: left; 
+    width: 40%; 
+    font-weight: 600;
+}
+
+.txt-vs { 
+    text-align: center; 
+    width: 10%; 
+    color: #999; 
+    font-style: italic; 
+    font-weight: bold;
+}
+
+/* Espaciado de la sección de pendientes */
+.pendientes-seccion {
+    margin-top: 30px;
+    padding: 0 10px;
+}
