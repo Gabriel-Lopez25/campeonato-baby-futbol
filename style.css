@@ -32,7 +32,7 @@ footer {
 .banner-container {
     width: 100%;
     max-width: 1000px;
-    height: 200px; /* Aquí fijas la altura que tú quieras para el banner */
+    height: 180px; /* Aquí fijas la altura que tú quieras para el banner */
     margin: 0 auto;
     overflow: hidden; /* Corta lo que sobre de la imagen */
     background-color: #000;
