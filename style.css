@@ -255,3 +255,64 @@ tbody tr:hover { background-color: #bbdefb; }
   transform: translateY(2px);
   box-shadow: 0 2px 0 #d68910;
 }
+
+
+/* 1. CONTENEDOR PRINCIPAL: Alinea todo al centro y en vertical */
+.filtros-container {
+    display: flex;
+    flex-direction: column; /* Apila elementos uno sobre otro (Vertical) */
+    align-items: center;    /* Centra horizontalmente */
+    gap: 15px;              /* Espacio de separación entre el select y el botón */
+    padding: 20px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* 2. EL SELECTOR (Menú desplegable) */
+#select-torneo {
+    padding: 10px 15px;
+    border-radius: 12px;    /* Bordes redondeados como pediste */
+    border: 2px solid #ccc; /* Grosor y color del borde */
+    background-color: white;
+    font-size: 1rem;
+    outline: none;          /* Quita el borde azul molesto al hacer clic */
+    cursor: pointer;
+}
+
+#select-torneo:focus {
+    border-color: #004d99;  /* El borde cambia a azul cuando lo usas */
+}
+
+/* Etiqueta del selector (opcional) */
+.grupo-selector label {
+    font-weight: bold;
+    margin-right: 8px;
+    color: #555;
+}
+
+/* 3. EL BOTÓN VERDE (Acumulado) */
+.btn-acumulado {
+    background-color: #27ae60; /* Color de fondo (Verde Fútbol) */
+    color: white;              /* Color del texto */
+    padding: 14px 28px;        /* Tamaño del botón (alto y ancho) */
+    font-size: 1.1rem;         /* Tamaño de la letra */
+    font-weight: bold;         /* Letra en negrita */
+    border: none;              /* Sin borde exterior */
+    border-radius: 50px;       /* Bordes totalmente circulares (estilo píldora) */
+    cursor: pointer;           /* Cambia el cursor a una mano */
+    display: flex;             /* Para alinear el icono 🏆 con el texto */
+    align-items: center;
+    gap: 10px;                 /* Espacio entre el trofeo y la palabra */
+    transition: all 0.3s ease; /* Hace que los cambios de color sean suaves */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1); /* Sombra suave para dar profundidad */
+}
+
+/* EFECTOS DEL BOTÓN */
+.btn-acumulado:hover {
+    background-color: #219150; /* Verde un poco más oscuro al pasar el mouse */
+    transform: scale(1.05);    /* Se agranda un 5% (efecto visual sutil) */
+}
+
+.btn-acumulado:active {
+    transform: scale(0.98);    /* Se encoge un poquito al hacer clic (efecto botón físico) */
+}
