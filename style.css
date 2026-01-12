@@ -1,318 +1,279 @@
-/* ================== GENERAL ================== */
+/* ==========================================================================
+   1. GENERAL Y ESTRUCTURA
+   ========================================================================== */
 body {
-  margin: 0;
-  font-family: 'Segoe UI', Arial, sans-serif;
-  background: #f0f4f8; /* Un gris azulado muy suave */
-  color: #333;
+    margin: 0;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #f0f4f8; /* Gris azulado suave */
+    color: #333;
 }
 
 header {
-  background: #004d99; /* Azul deportivo */
-  color: #fff;
-  padding: 20px 10px;
+    background: #004d99; /* Azul deportivo */
+    color: #fff;
+    padding: 20px 10px;
+    text-align: center;
 }
 
 footer {
-  background: #222;
-  color: #bbb;
-  padding: 15px;
-  font-size: 0.9rem;
+    background: #222;
+    color: #bbb;
+    padding: 15px;
+    font-size: 0.9rem;
+    text-align: center;
 }
 
-/* ================== BANNER STICKY ================== */
+/* ==========================================================================
+   2. BANNER PUBLICITARIO (Altura Fija)
+   ========================================================================== */
 #banner-publicidad {
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  background: #000;
-  border-bottom: 3px solid #f39c12; /* Línea dorada decorativa */
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: #000;
+    border-bottom: 3px solid #f39c12; /* Línea dorada */
 }
 
-/* CONTENEDOR CON ALTURA FIJA */
 .banner-container {
     width: 100%;
     max-width: 1000px;
-    height: 180px; /* Aquí fijas la altura que tú quieras para el banner */
+    height: 180px; /* Altura fija para PC */
     margin: 0 auto;
-    overflow: hidden; /* Corta lo que sobre de la imagen */
+    overflow: hidden;
     background-color: #000;
 }
 
-/* LA IMAGEN SE ADAPTA AL CONTENEDOR */
 #img-banner {
     width: 100%;
-    height: 100%; /* Obliga a la imagen a llenar toda la altura del contenedor */
-    object-fit: cover; /* Recorta la imagen para que llene el espacio sin estirarse */
-    object-position: center; /* Centra la imagen para que no se corte solo de un lado */
+    height: 100%;
+    object-fit: cover; /* Adapta la imagen sin deformar */
+    object-position: center;
     display: block;
     transition: opacity 0.8s ease;
 }
 
-/* AJUSTE PARA MÓVILES */
 @media (max-width: 768px) {
-    .banner-container {
-        height: 120px; /* En celulares lo hacemos más bajito */
-    }
+    .banner-container { height: 120px; } /* Altura fija para Celulares */
 }
 
-/* ================== POPUP MEJORADO ================== */
+/* ==========================================================================
+   3. POPUP (ANUNCIOS)
+   ========================================================================== */
 #popup-overlay {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background: rgba(0,0,0,0.85);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 9999;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.85);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
 }
 
 #popup-content {
-  position: relative;
-  width: 90%;
-  max-width: 400px; /* Tamaño ideal para móviles y PC */
+    position: relative;
+    width: 90%;
+    max-width: 400px;
 }
 
 #popup-content img {
-  width: 100%; /* Ajustado al 100% del contenedor */
-  border-radius: 12px;
-  display: block;
+    width: 100%;
+    border-radius: 12px;
+    display: block;
 }
 
 #popup-close {
-  position: absolute;
-  top: -15px;
-  right: -15px;
-  width: 35px;
-  height: 35px;
-  border-radius: 50%;
-  background: #e74c3c;
-  color: #fff;
-  border: 2px solid #fff;
-  font-size: 18px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    position: absolute;
+    top: -15px; right: -15px;
+    width: 35px; height: 35px;
+    border-radius: 50%;
+    background: #e74c3c;
+    color: #fff;
+    border: 2px solid #fff;
+    font-size: 18px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
 }
 
-/* ================== MENÚ CATEGORÍAS ================== */
+/* ==========================================================================
+   4. NAVEGACIÓN Y FILTROS (Centrados)
+   ========================================================================== */
 #menu-categorias {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  padding: 15px;
-  background: #fff;
-  overflow-x: auto; /* Para que en móviles no se rompa */
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    padding: 15px;
+    background: #fff;
+    overflow-x: auto;
 }
 
 #menu-categorias button {
-  padding: 10px 20px;
-  border: 2px solid #004d99;
-  background: transparent;
-  color: #004d99;
-  font-weight: bold;
-  border-radius: 20px;
-  cursor: pointer;
-  transition: 0.3s;
+    padding: 10px 20px;
+    border: 2px solid #004d99;
+    background: transparent;
+    color: #004d99;
+    font-weight: bold;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: 0.3s;
 }
 
 #menu-categorias button.activo, #menu-categorias button:hover {
-  background: #004d99;
-  color: #fff;
+    background: #004d99;
+    color: #fff;
 }
 
-/* ================== TABLA CELESTE Y BLANCO ================== */
+.filtros-container {
+    display: flex;
+    flex-direction: column; /* Selector arriba, botón abajo */
+    align-items: center;
+    gap: 15px;
+    padding: 20px;
+    width: 100%;
+}
+
+#select-torneo {
+    padding: 10px 15px;
+    border-radius: 12px;
+    border: 2px solid #ccc;
+    background-color: white;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.btn-acumulado {
+    background-color: #27ae60; /* Verde Fútbol */
+    color: white;
+    padding: 14px 28px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.btn-acumulado:hover {
+    background-color: #219150;
+    transform: scale(1.05);
+}
+
+/* ==========================================================================
+   5. TABLA DE POSICIONES (Diseño Celeste y Blanco)
+   ========================================================================== */
 .table-responsive {
-  overflow-x: auto;
-  margin: 20px;
-  background: #fff;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    overflow-x: auto;
+    margin: 20px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
 }
 
 table {
-  width: 100%;
-  border-collapse: collapse;
+    width: 100%;
+    border-collapse: collapse;
 }
 
-/* CONTROL DE TAMAÑO DE ESCUDOS EN LA TABLA */
-.escudo-td img {
-    width: 30px;        /* Ancho pequeño para la tabla */
-    height: 30px;       /* Alto igual para que sea cuadrado */
-    object-fit: contain; /* Evita que el escudo se deforme */
-    vertical-align: middle; /* Lo alinea con el texto del nombre */
-    margin-right: 10px;  /* Separa el escudo del nombre del equipo */
+thead { background: #004d99; color: #fff; }
+
+th, td {
+    padding: 12px 8px;
+    text-align: center;
+    border-bottom: 1px solid #eee;
 }
 
-/* Ajuste para que la celda del nombre sea flexible */
+/* Efecto Cebra */
+tbody tr:nth-child(odd) { background-color: #ffffff; }
+tbody tr:nth-child(even) { background-color: #e3f2fd; }
+tbody tr:hover { background-color: #bbdefb; }
+
+/* Escudos en la Tabla */
 .escudo-td {
     display: flex;
     align-items: center;
-    justify-content: flex-start; /* Alinea escudo y texto a la izquierda */
+    justify-content: flex-start;
     text-align: left;
-    min-width: 150px; /* Evita que el nombre se amontone */
+    min-width: 160px;
 }
 
-thead {
-  background: #004d99;
-  color: #fff;
+.escudo-td img {
+    width: 30px; height: 30px;
+    object-fit: contain;
+    margin-right: 10px;
 }
 
-th, td {
-  padding: 12px 8px;
-  text-align: center;
-  border-bottom: 1px solid #eee;
+/* NUEVO: Resaltado de Puntos (Redondelito) */
+.celda-puntos span {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #004d99; /* Azul igual al header */
+    color: #fff;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    font-weight: bold;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
-/* Efecto Cebra: Blanco y Celeste Suave */
-tbody tr:nth-child(odd) { background-color: #ffffff; }
-tbody tr:nth-child(even) { background-color: #e3f2fd; }
+/* NUEVO: Diferencia de Goles Sobria (Mismo color que texto) */
+.dg-positiva, .dg-negativa {
+    color: inherit; /* Eliminamos el rojo/verde previo */
+    font-weight: bold;
+}
 
-tbody tr:hover { background-color: #bbdefb; }
-
-.dg-positiva { color: #27ae60; font-weight: bold; }
-.dg-negativa { color: #c0392b; font-weight: bold; }
-
-/* ================== FIXTURE Y FECHA LIBRE ================== */
+/* ==========================================================================
+   6. FIXTURE (TARJETAS DE PARTIDOS)
+   ========================================================================== */
 .partido-card {
-  background: #fff;
-  margin: 15px;
-  padding: 15px;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-  border-left: 5px solid #004d99;
+    background: #fff;
+    margin: 15px;
+    padding: 15px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    border-left: 5px solid #004d99;
 }
 
 .fixture-fila {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .equipo-col {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
 }
 
 .escudo-fixture {
-  width: 45px;
-  height: 45px;
-  object-fit: contain;
-  margin-bottom: 5px;
-}
-
-.escudo-fixture {
-    width: 45px;
-    height: 45px;
+    width: 45px; height: 45px;
     object-fit: contain;
     margin-bottom: 5px;
 }
 
-.equipo-nombre {
-  font-weight: bold;
-  font-size: 0.9rem;
-}
-
-/* EL TOQUE VERDE PARA FECHA LIBRE */
-.texto-libre {
-  color: #27ae60 !important;
-  font-weight: 800 !important;
-  font-size: 1.1rem;
-}
+.equipo-nombre { font-weight: bold; font-size: 0.9rem; }
 
 .resultado-col {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 1.2rem;
-  font-weight: bold;
-}
-
-.vs {
-  font-size: 0.8rem;
-  color: #888;
-  text-transform: uppercase;
-}
-
-/* ================== BOTÓN ACUMULADO ================== */
-.btn-acumulado {
-  background: #f39c12;
-  color: #fff;
-  padding: 12px 25px;
-  border: none;
-  border-radius: 8px;
-  font-weight: bold;
-  cursor: pointer;
-  margin: 10px 0;
-  box-shadow: 0 4px 0 #d68910;
-}
-
-.btn-acumulado:active {
-  transform: translateY(2px);
-  box-shadow: 0 2px 0 #d68910;
-}
-
-
-/* 1. CONTENEDOR PRINCIPAL: Alinea todo al centro y en vertical */
-.filtros-container {
     display: flex;
-    flex-direction: column; /* Apila elementos uno sobre otro (Vertical) */
-    align-items: center;    /* Centra horizontalmente */
-    gap: 15px;              /* Espacio de separación entre el select y el botón */
-    padding: 20px;
-    width: 100%;
-    box-sizing: border-box;
-}
-
-/* 2. EL SELECTOR (Menú desplegable) */
-#select-torneo {
-    padding: 10px 15px;
-    border-radius: 12px;    /* Bordes redondeados como pediste */
-    border: 2px solid #ccc; /* Grosor y color del borde */
-    background-color: white;
-    font-size: 1rem;
-    outline: none;          /* Quita el borde azul molesto al hacer clic */
-    cursor: pointer;
-}
-
-#select-torneo:focus {
-    border-color: #004d99;  /* El borde cambia a azul cuando lo usas */
-}
-
-/* Etiqueta del selector (opcional) */
-.grupo-selector label {
-    font-weight: bold;
-    margin-right: 8px;
-    color: #555;
-}
-
-/* 3. EL BOTÓN VERDE (Acumulado) */
-.btn-acumulado {
-    background-color: #27ae60; /* Color de fondo (Verde Fútbol) */
-    color: white;              /* Color del texto */
-    padding: 14px 28px;        /* Tamaño del botón (alto y ancho) */
-    font-size: 1.1rem;         /* Tamaño de la letra */
-    font-weight: bold;         /* Letra en negrita */
-    border: none;              /* Sin borde exterior */
-    border-radius: 50px;       /* Bordes totalmente circulares (estilo píldora) */
-    cursor: pointer;           /* Cambia el cursor a una mano */
-    display: flex;             /* Para alinear el icono 🏆 con el texto */
     align-items: center;
-    gap: 10px;                 /* Espacio entre el trofeo y la palabra */
-    transition: all 0.3s ease; /* Hace que los cambios de color sean suaves */
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1); /* Sombra suave para dar profundidad */
+    gap: 10px;
+    font-size: 1.2rem;
+    font-weight: bold;
 }
 
-/* EFECTOS DEL BOTÓN */
-.btn-acumulado:hover {
-    background-color: #219150; /* Verde un poco más oscuro al pasar el mouse */
-    transform: scale(1.05);    /* Se agranda un 5% (efecto visual sutil) */
-}
+.vs { font-size: 0.8rem; color: #888; }
 
-.btn-acumulado:active {
-    transform: scale(0.98);    /* Se encoge un poquito al hacer clic (efecto botón físico) */
+.texto-libre {
+    color: #27ae60 !important;
+    font-weight: 800 !important;
+    font-size: 1.1rem;
 }
