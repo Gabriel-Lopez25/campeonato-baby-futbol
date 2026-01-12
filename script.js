@@ -55,7 +55,6 @@ async function cargarDatos() {
         const text = await resp.text();
         datosPartidos = csvToJSON(text);
 
-        // Actualizar fecha de actualización si existe la columna
         if (datosPartidos.length > 0 && datosPartidos[0]["Actualizacion"]) {
             const fechaEl = document.getElementById('fecha-actualizacion');
             if (fechaEl) fechaEl.innerText = "Actualizado: " + datosPartidos[0]["Actualizacion"];
@@ -116,7 +115,6 @@ function actualizarVista() {
 function generarTabla(cat, torneo) {
     let tabla = {};
     
-    // 1. Identificar equipos reales en la categoría
     datosPartidos.filter(p => p.Categoria === cat).forEach(p => {
         if (esEquipoReal(p.Local) && !tabla[p.Local]) 
             tabla[p.Local] = { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0 };
@@ -124,7 +122,6 @@ function generarTabla(cat, torneo) {
             tabla[p.Visitante] = { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0 };
     });
 
-    // 2. Procesar partidos jugados
     const partidosJugados = datosPartidos.filter(p => 
         p.Categoria === cat && 
         (torneo === "Anual" ? (p.Torneo === "Apertura" || p.Torneo === "Clausura") : p.Torneo === torneo) &&
@@ -168,19 +165,24 @@ function dibujarTabla(datos) {
             <td>${club.pj}</td><td>${club.pg}</td><td>${club.pe}</td><td>${club.pp}</td>
             <td>${club.gf}</td><td>${club.gc}</td>
             <td class="${club.dg > 0 ? 'dg-positiva' : 'dg-negativa'}">${dgSigno}</td>
-            <td><strong>${club.pts}</strong></td>
+            <td class="celda-puntos"><span>${club.pts}</span></td>
         </tr>`;
     }).join('');
 }
 
-/* ================= GENERAR FIXTURE ================= */
+/* ================= GENERAR FIXTURE (RESULTADOS Y PRÓXIMOS) ================= */
 function generarFixture(cat, torneo) {
     const contenedor = document.getElementById('lista-partidos');
     if (!contenedor) return;
     
     const partidos = datosPartidos.filter(p => p.Categoria === cat && p.Torneo === torneo);
     
-    contenedor.innerHTML = partidos.map(p => {
+    // SEPARAMOS JUGADOS DE PENDIENTES
+    const jugados = partidos.filter(p => p.Estado === "Jugado");
+    const pendientes = partidos.filter(p => p.Estado === "Pendiente");
+
+    // 1. HTML para Partidos Jugados (Tarjetas Grandes)
+    let htmlJugados = jugados.map(p => {
         const esLibreLocal = !esEquipoReal(p.Local);
         const esLibreVisitante = !esEquipoReal(p.Visitante);
         const esFechaLibre = esLibreLocal || esLibreVisitante;
@@ -195,16 +197,51 @@ function generarFixture(cat, torneo) {
                 </div>
                 ${!esFechaLibre ? `
                 <div class="resultado-col">
-                    <span>${p.Goles_L || '-'}</span> vs <span>${p.Goles_V || '-'}</span>
+                    <span>${p.Goles_L || '0'}</span> vs <span>${p.Goles_V || '0'}</span>
                 </div>` : ''}
                 <div class="equipo-col" style="${esLibreVisitante ? 'justify-content:center; width:100%' : ''}">
                     <span class="equipo-nombre ${esLibreVisitante ? 'texto-libre' : ''}">${esLibreVisitante ? 'FECHA LIBRE' : p.Visitante}</span>
                     ${!esLibreVisitante ? `<img src="img/escudos/${p.Visitante}.png" class="escudo-fixture" onerror="this.src='img/escudos/default.png'">` : ''}
                 </div>
             </div>
-            ${!esFechaLibre ? `<small style="color: ${p.Estado === 'Jugado' ? 'green' : 'orange'}">${p.Estado}</small>` : ''}
+            <small style="color: green">✔ Finalizado</small>
         </div>`;
-    }).join('') || '<p>No hay partidos programados</p>';
+    }).join('');
+
+    // 2. HTML para Partidos Pendientes (Formato Compacto)
+    let htmlPendientes = "";
+    if (pendientes.length > 0) {
+        htmlPendientes = `
+        <div class="pendientes-seccion">
+            <h3 style="text-align:center; margin: 20px 0 10px 0; color: #004d99;">Próximas Fechas</h3>
+            <div class="table-responsive">
+                <table class="tabla-pendientes">
+                    <tbody>
+                        ${pendientes.map(p => {
+                            const esLibreL = !esEquipoReal(p.Local);
+                            const esLibreV = !esEquipoReal(p.Visitante);
+                            return `
+                            <tr>
+                                <td style="width: 15%; font-size: 0.8rem; color: #666;">F. ${p.Fecha}</td>
+                                <td class="txt-der">
+                                    <span class="${esLibreL ? 'texto-libre' : ''}">${esLibreL ? 'LIBRE' : p.Local}</span>
+                                    ${!esLibreL ? `<img src="img/escudos/${p.Local}.png" class="mini-escudo" onerror="this.src='img/escudos/default.png'">` : ''}
+                                </td>
+                                <td class="txt-vs">vs</td>
+                                <td class="txt-izq">
+                                    ${!esLibreV ? `<img src="img/escudos/${p.Visitante}.png" class="mini-escudo" onerror="this.src='img/escudos/default.png'">` : ''}
+                                    <span class="${esLibreV ? 'texto-libre' : ''}">${esLibreV ? 'LIBRE' : p.Visitante}</span>
+                                </td>
+                            </tr>`;
+                        }).join('')}
+                    </tbody>
+                </table>
+            </div>
+        </div>`;
+    }
+
+    contenedor.innerHTML = htmlJugados + htmlPendientes;
+    if (partidos.length === 0) contenedor.innerHTML = '<p style="text-align:center">No hay partidos programados</p>';
 }
 
 /* ================= TABLA ACUMULADA ================= */
