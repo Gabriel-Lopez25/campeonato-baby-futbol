@@ -162,3 +162,86 @@ td { padding: 12px; border-bottom: 1px solid var(--glass-border); text-align: ce
 .txt-der { text-align: right; width: 40%; font-weight: 500; }
 .txt-izq { text-align: left; width: 40%; font-weight: 500; }
 .txt-vs { text-align: center; width: 10%; color: var(--celeste-neon); font-weight: bold; font-size: 0.8rem; }
+
+/* ==========================================================================
+   PIE DE PÁGINA BLANCO (RESALTE MÁXIMO)
+   ========================================================================== */
+.footer-white {
+    background-color: #ffffff; /* Fondo blanco puro */
+    padding: 40px 20px;
+    margin-top: 60px;
+    color: #1a1a1a; /* Texto oscuro para que se lea bien */
+    border-top: 4px solid var(--celeste-neon); /* Línea celeste para unir los estilos */
+}
+
+.footer-content {
+    max-width: 1000px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.footer-logo-img {
+    height: 45px; /* Un poco más grande para que luzca */
+    width: auto;
+    margin-bottom: 5px;
+    /* Si tu logo tiene celeste, resaltará mucho sobre el blanco */
+}
+
+.footer-brand p {
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #333;
+}
+
+/* Texto SkyBlue en azul oscuro/celeste para fondo blanco */
+.sky-text-dark {
+    color: #0077ff; 
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+.footer-divider {
+    width: 50px;
+    height: 2px;
+    background-color: #eee;
+}
+
+.footer-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.copyright {
+    font-size: 0.8rem;
+    color: #888;
+    margin: 0;
+}
+
+/* Badge de estado en versión clara */
+.status-badge {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #f0f4f8;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.7rem;
+    font-weight: bold;
+    color: #555;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.status-dot-blue {
+    width: 8px;
+    height: 8px;
+    background-color: #00e5ff;
+    border-radius: 50%;
+    box-shadow: 0 0 5px rgba(0, 229, 255, 0.5);
+}
